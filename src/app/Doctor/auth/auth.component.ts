@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DoctorService } from 'src/app/Service/doctor.service';
 import { Doctor } from 'src/app/entities/doctor';
 
@@ -13,7 +14,7 @@ export class AuthComponent {
 
   clienteForm! :FormGroup;
 
-  constructor(private doctorservice: DoctorService , private fb: FormBuilder) {
+  constructor(private doctorservice: DoctorService , private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.clienteForm = this.fb.group({
       correo:['',[Validators.required,Validators.email]],
       nombre:['',Validators.required],
@@ -41,9 +42,22 @@ export class AuthComponent {
       console.log(doctor);
 
       this.doctorservice.registrarDoctor(doctor.correo,doctor.contrasena)
-      .then(Response=> console.log(Response)
+      .then(Response=> {
+        console.log(Response)
+        this.clienteForm.reset();
+        this.snackBar.open("Añadido", 'Close', {
+          duration: 3000,
+          panelClass: ['error-toast'],
+        });
+      }
       
-      ).catch(error=> console.log(error)
+      ).catch(error=> {
+        console.log(error)
+        this.snackBar.open(error, 'Close', {
+          duration: 3000,
+          panelClass: ['error-toast'],
+        });
+      }
       );
       
     }
