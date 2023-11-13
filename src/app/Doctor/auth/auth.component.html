@@ -27,6 +27,19 @@
       <input formControlName="contrasena" type="password" class="form-control" id="contrasena" placeholder="Ingrese su contraseña"  name="contrasena">
     </div>
 
+    <div class="mb-3">
+      <label for="especialidad" class="form-label">Especialidad</label>
+      <input formControlName="especialidad" type="text" class="form-control" id="especialidad" placeholder="Ingrese su especialidad" name="especialidad">
+    </div>
+
+    <div class="mb-3">
+      <label for="Eps" class="form-label">Eps</label>
+      <select formControlName="Eps" class="form-control" id="Eps" name="Eps">
+        <option value="colsanidad">colsanidad</option>
+        <option value="alianzaMedica">alianza medica</option>
+      </select>
+    </div>
+
     <!-- Otros campos e información relevante pueden ser agregados según tus necesidades -->
 
     <button type="submit" class="btn btn-primary">Registrarse</button>

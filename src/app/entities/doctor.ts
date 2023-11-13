@@ -3,5 +3,6 @@ export interface Doctor {
     contrasena:string,
     nombre:string,
     apellido:string,
-    especialidad:string|null
+    especialidad:string
+    Eps:string
 }

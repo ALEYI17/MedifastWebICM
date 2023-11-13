@@ -14,12 +14,16 @@ export class AuthComponent {
 
   clienteForm! :FormGroup;
 
+  uid:string = "";
+
   constructor(private doctorservice: DoctorService , private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.clienteForm = this.fb.group({
       correo:['',[Validators.required,Validators.email]],
       nombre:['',Validators.required],
       apellido:['',Validators.required],
-      contrasena:['',Validators.required]
+      contrasena:['',Validators.required],
+      Eps:['',Validators.required],
+      especialidad:['',Validators.required]
     });
   }
 
@@ -36,15 +40,32 @@ export class AuthComponent {
         contrasena:clienteData.contrasena,
         correo:clienteData.correo,
         nombre:clienteData.nombre,
-        especialidad:null
+        especialidad:clienteData.especialidad,
+        Eps:clienteData.Eps,
       } 
 
       console.log(doctor);
 
-      this.doctorservice.registrarDoctor(doctor.correo,doctor.contrasena)
+       this.doctorservice.registrarDoctor(doctor.correo,doctor.contrasena)
       .then(Response=> {
+        this.uid = Response.user.uid;
+        console.log(this.uid);
         console.log(Response)
         this.clienteForm.reset();
+        this.doctorservice.guaradrDoctor(doctor, this.uid)
+      .then(Res=>{
+        console.log(Res)
+        this.snackBar.open('Doctor guardado correctamente', 'Close', {
+          duration: 3000,
+          panelClass: ['success-toast'],
+        });
+      }).catch(error=>{
+        console.log(error)
+        this.snackBar.open('Error al guardar el doctor', 'Close', {
+          duration: 3000,
+          panelClass: ['error-toast'],
+        });
+      })
         this.snackBar.open("Añadido", 'Close', {
           duration: 3000,
           panelClass: ['error-toast'],
@@ -59,10 +80,19 @@ export class AuthComponent {
         });
       }
       );
+
+      
+
+      
+      
       
     }
     else{
       console.log("no es valido");
+      this.snackBar.open("LLena todos los campos", 'Close', {
+        duration: 3000,
+        panelClass: ['error-toast'],
+      });
       
     }
     

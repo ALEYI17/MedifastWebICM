@@ -15,10 +15,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+
+
   ],
   imports: [
     BrowserModule,
