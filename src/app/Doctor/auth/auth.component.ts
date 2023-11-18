@@ -41,7 +41,10 @@ export class AuthComponent {
         correo:clienteData.correo,
         nombre:clienteData.nombre,
         especialidad:clienteData.especialidad,
-        Eps:clienteData.Eps,
+        eps:clienteData.Eps,
+        latitud:0,
+        longitud:0,
+        id:""
       } 
 
       console.log(doctor);
@@ -52,6 +55,7 @@ export class AuthComponent {
         console.log(this.uid);
         console.log(Response)
         this.clienteForm.reset();
+        doctor.id=this.uid
         this.doctorservice.guaradrDoctor(doctor, this.uid)
       .then(Res=>{
         console.log(Res)

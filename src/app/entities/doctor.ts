@@ -4,5 +4,8 @@ export interface Doctor {
     nombre:string,
     apellido:string,
     especialidad:string
-    Eps:string
+    eps:string,
+    latitud:number,
+    longitud:number,
+    id:string
 }
